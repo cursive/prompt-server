@@ -1,4 +1,5 @@
-const express = require('express');
+import express from 'express';
+
 const router = express.Router();
 
 // Define API routes
@@ -7,4 +8,4 @@ router.post('/message', (req, res) => {
     res.json({ message });
 });
 
-module.exports = router;
+export default router;

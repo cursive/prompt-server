@@ -1,5 +1,5 @@
 
-var fakeMode = true;
+var fakeMode = false;
 var jsonData;
 
 //Init and events
@@ -17,6 +17,7 @@ $(function () {
 
 function initButtons() {
     $(".bigButton").click(function () {
+        $('.bigButton').off('click.mynamespace');
         ai()
     })
     $(".glitch").click(function () {
@@ -50,7 +51,8 @@ function fakeIt() {
     processPartials();
 }
 
-var baseurl = "http://127.0.0.1:1234/api/reviewessay"
+// /api/prompt
+var baseurl = "/api/prompt"
 var remoteurl = "https://migo-server.glitch.me/reviewessay"
 function populateText() {
     $("#fromStudent").html(ess);
@@ -186,6 +188,7 @@ function ai() {
             console.log("Data received")
             console.log(data.result)
             $(".bigButton").removeClass("loading")
+            $(".bigButton").addClass("loaded")
             createJson(data.result)
         })
         .catch(error => {

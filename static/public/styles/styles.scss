@@ -307,11 +307,8 @@ body {
   /* Blue */
   color: white;
 
-  background: linear-gradient(to right, #1042a0 50%, #1865F2 50%);
+  background-color: #1865F2;
   background-size: 200% 100%;
-  background-position: right bottom;
-  transition: all 45s ease-out;
-
   border-radius: 6px;
 
   &::before {
@@ -327,16 +324,29 @@ body {
 
   &.loading {
     animation: flickerAnimation 2s infinite;
-    background: linear-gradient(to right, #999999 50%, #999999 50%);
+    background-color: #5288ec;
+    ;
     // background-position: left bottom;
     text-decoration: none;
-
+    cursor: default !important;
 
     &::before {
       content: 'Loading...';
     }
 
-    // background-color: #aaaaaa;
+  }
+
+  &.loaded {
+
+    background-color: #999999;
+    // background-position: left bottom;
+    text-decoration: none;
+    cursor: not-allowed !important;
+
+    &::before {
+      content: 'View as student';
+    }
+
   }
 
 }
@@ -346,15 +356,15 @@ body {
 
 @keyframes flickerAnimation {
   0% {
-    color: rgba($color: #ffffff, $alpha: 0);
+    color: rgba($color: #ffffff, $alpha: 0.2);
   }
 
   50% {
-    color: rgba($color: #ffffff, $alpha: 0.5);
+    color: rgba($color: #ffffff, $alpha: 0.7);
   }
 
   100% {
-    color: rgba($color: #ffffff, $alpha: 0);
+    color: rgba($color: #ffffff, $alpha: 0.2);
   }
 }
 

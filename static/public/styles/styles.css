@@ -235,10 +235,8 @@ body {
   height: 56px;
   /* Blue */
   color: white;
-  background: linear-gradient(to right, #1042a0 50%, #1865F2 50%);
+  background-color: #1865F2;
   background-size: 200% 100%;
-  background-position: right bottom;
-  transition: all 45s ease-out;
   border-radius: 6px;
   /* Inside auto layout */
 }
@@ -250,22 +248,31 @@ body {
 }
 .bigButton.loading {
   animation: flickerAnimation 2s infinite;
-  background: linear-gradient(to right, #999999 50%, #999999 50%);
+  background-color: #5288ec;
   text-decoration: none;
+  cursor: default !important;
 }
 .bigButton.loading::before {
   content: "Loading...";
 }
+.bigButton.loaded {
+  background-color: #999999;
+  text-decoration: none;
+  cursor: not-allowed !important;
+}
+.bigButton.loaded::before {
+  content: "View as student";
+}
 
 @keyframes flickerAnimation {
   0% {
-    color: rgba(255, 255, 255, 0);
+    color: rgba(255, 255, 255, 0.2);
   }
   50% {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.7);
   }
   100% {
-    color: rgba(255, 255, 255, 0);
+    color: rgba(255, 255, 255, 0.2);
   }
 }
 h1 {
