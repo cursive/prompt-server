@@ -2,9 +2,12 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-// Define routes
+// Serve static files from the "static" directory
+app.use(express.static('static'));
+
+// Define root route
 app.get('/', (req, res) => {
-    res.send('Helloooo, World!');
+    res.send('Hello, World!');
 });
 
 // Start the server

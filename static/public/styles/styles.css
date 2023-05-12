@@ -1,0 +1,292 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "ColfaxAI";
+  src: url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff2) format("woff2"), url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff) format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "ColfaxAI";
+  src: url(https://cdn.openai.com/API/fonts/ColfaxAIBold.woff2) format("woff2"), url(https://cdn.openai.com/API/fonts/ColfaxAIBold.woff) format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+body {
+  background-color: #f5f5f5;
+  padding: 0;
+  margin: 0;
+}
+
+.nav {
+  width: 100%;
+  text-align: center;
+  background-color: #0C2248;
+  position: fixed;
+  z-index: 100;
+}
+
+.center {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.main,
+.main input {
+  padding-top: 24px;
+  font-size: 16px;
+  line-height: 24px;
+  color: #353740;
+  font-family: "ColfaxAI", Helvetica, sans-serif;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  align-items: flex-start;
+  padding-top: 16px;
+}
+
+.header {
+  padding-top: 72px;
+  width: 900px;
+  padding-left: 200px;
+}
+
+.students {
+  width: 250px;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.essay {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.essay #fromStudent {
+  font-size: 18px;
+}
+
+.review {
+  background-color: #e2e2f1;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.right .cta {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  width: 344px;
+}
+.right .comments {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.comment {
+  width: 360px;
+  padding: 8px;
+  padding-top: 16px;
+  padding-right: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  border-radius: 16px;
+}
+.comment * {
+  transition: 300ms;
+}
+.comment.score1 {
+  background-color: #E6DBDB;
+}
+.comment.score2 {
+  background-color: #E6DBDB;
+}
+.comment.score3 {
+  background-color: #E7E7D9;
+}
+.comment.score4 {
+  background-color: #DEEAE0;
+}
+.comment.hovering {
+  stroke: 1px solid #666666;
+  background-color: #ff0000;
+}
+.comment.approved {
+  background-color: #d9dde7;
+}
+.comment.approved .migo {
+  scale: 0;
+}
+.comment.approved .teacher {
+  scale: 1;
+}
+.comment.approved .actions .ph-thumbs-up,
+.comment.approved .ph-thumbs-down {
+  opacity: 0;
+}
+.comment.rejected {
+  transition: 1300ms;
+  scale: 0;
+  transform-origin: 30% 90%;
+  transition: 300ms;
+  transition-timing-function: cubic-bezier(-1, 0.7, 1, 0.1);
+}
+.comment .face {
+  padding-top: 26px;
+  font-size: 24px;
+}
+.comment img {
+  padding-left: 8px;
+  transform-origin: center;
+}
+.comment .teacher {
+  margin-left: -32px;
+}
+.comment .teacher {
+  scale: 0;
+}
+.comment .dimension {
+  padding-left: 8px;
+  font-size: 16px;
+  font-weight: 300;
+  text-transform: capitalize;
+  padding-top: 8px;
+}
+.comment .feedback {
+  transition: 700ms;
+  font-size: 16px;
+  color: #666666;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 4px;
+  border-radius: 8px;
+}
+.comment .feedback:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+.comment .feedback:focus {
+  outline: 2px solid rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 0.05);
+  transition: 300ms;
+}
+.comment .buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-top: 4px;
+}
+.center .content {
+  width: 640px;
+}
+
+.quote.score1 {
+  background-color: #fbdddd;
+}
+.quote.score2 {
+  background-color: #fbdddd;
+}
+.quote.score3 {
+  background-color: #f4ebd0;
+}
+.quote.score4 {
+  background-color: #ebffe1;
+}
+.quote.rejected {
+  background-color: #ffffff !important;
+}
+
+.comment.score1 .face::before {
+  content: "🤢";
+}
+
+.comment.score2 .face::before {
+  content: "😞";
+}
+
+.comment.score3 .face::before {
+  content: "🙂";
+}
+
+.comment.score4 .face::before {
+  content: "😍";
+}
+
+.bigButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 32px;
+  width: 276px;
+  height: 56px;
+  /* Blue */
+  color: white;
+  background: linear-gradient(to right, #1042a0 50%, #1865F2 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 45s ease-out;
+  border-radius: 6px;
+  /* Inside auto layout */
+}
+.bigButton::before {
+  content: "Review essay";
+}
+.bigButton:hover {
+  cursor: pointer;
+}
+.bigButton.loading {
+  animation: flickerAnimation 2s infinite;
+  background: linear-gradient(to right, #999999 50%, #999999 50%);
+  text-decoration: none;
+}
+.bigButton.loading::before {
+  content: "Loading...";
+}
+
+@keyframes flickerAnimation {
+  0% {
+    color: rgba(255, 255, 255, 0);
+  }
+  50% {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  100% {
+    color: rgba(255, 255, 255, 0);
+  }
+}
+h1 {
+  line-height: 40px;
+}
+
+.old {
+  display: none;
+}
+
+i.ph {
+  box-sizing: border-box;
+  border-radius: 100%;
+  padding: 8px;
+  font-size: 20px;
+}
+i.ph:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+  display: none !important;
+}/*# sourceMappingURL=styles.css.map */
