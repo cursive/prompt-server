@@ -53,6 +53,7 @@ function fakeIt() {
 
 // /api/prompt
 var baseurl = "/api/prompt"
+var baseurl = "https://prompt-server--danielnacamuli.repl.co/public/prompt"
 var remoteurl = "https://migo-server.glitch.me/reviewessay"
 function populateText() {
     $("#fromStudent").html(ess);
