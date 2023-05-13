@@ -20,8 +20,8 @@ function initButtons() {
         $('.bigButton').off('click.mynamespace');
         ai()
     })
-    $(".glitch").click(function () {
-        sendToGlitch()
+    $(".test").click(function () {
+        testSimple()
     })
 
 
@@ -132,36 +132,25 @@ function processFull() {
         }
     }
 }
-
-function sendToGlitch() {
-    console.log("sending to glitch..")
-    fetch(remoteurl, {
-        method: "POST",
+function testSimple() {
+    console.log("sending to simple..")
+    fetch('https://prompt-server--danielnacamuli.repl.co/api/message', {
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json'
         },
-        //body: JSON.stringify({ essay: document.getElementById("essayTextArea").value }),
-        body: JSON.stringify({
-            article: document.getElementById("animal").value
-        }),
+        body: JSON.stringify({}) // Add any request data if needed
     })
-        .then(response => {
-            if (response.status !== 200) {
-                throw new Error(`Request failed with status ${response.status}`);
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            console.log("Data received")
-            console.log(data.result)
-
-
+            console.log(data.message); // Process the response data
         })
         .catch(error => {
-            console.error(error);
-            alert(error.message);
+            console.error('Error:', error);
         });
 }
+
+
 
 function ai() {
     console.log("sending..")
