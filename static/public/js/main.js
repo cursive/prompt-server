@@ -131,9 +131,11 @@ function processFull() {
     }
 }
 
-var remoteRoot = "https://prompt-server--danielnacamuli.repl.co/"
-var localRoot = "https://prompt-server--danielnacamuli.repl.co/"
-var baseURL = remoteRoot
+var remoteRoot = "https://prompt-server--danielnacamuli.repl.co/";
+var localRoot = "http://localhost:3000/";
+var baseURL = window.location.hostname === 'localhost' ? localRoot : remoteRoot;
+
+
 
 
 function testSimple() {

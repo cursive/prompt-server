@@ -1,13 +1,15 @@
 import { Configuration, OpenAIApi } from "openai";
 import express from "express";
-//import dotenv from 'dotenv';
-
+import dotenv from 'dotenv';
+dotenv.config({ path: './.env' });
 
 const router = express.Router();
+console.log("promptAPI.js jsut started")
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });
+console.log("OpenAPI key", process.env.OPENAI_API_KEY)
 const openai = new OpenAIApi(configuration);
 
 router.post('/prompt', async (req, res) => {
@@ -47,6 +49,7 @@ router.post('/prompt', async (req, res) => {
     } catch (error) {
         // Consider adjusting the error handling logic for your use case
         if (error.response) {
+            console.log("Error with OpenAI API request")
             console.error(error.response.status, error.response.data);
             res.status(error.response.status).json(error.response.data);
         } else {
