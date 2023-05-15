@@ -4,6 +4,7 @@ const router = express.Router();
 
 // Define API routes
 router.post('/message', (req, res) => {
+    console.log("Server in message")
     const message = 'This is a simple API message.';
     res.json({ message });
 });

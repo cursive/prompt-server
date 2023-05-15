@@ -7,11 +7,11 @@ const router = express.Router();
 dotenv.config();
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
-    // apiKey: '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',
 });
 const openai = new OpenAIApi(configuration);
 
 router.post('/prompt', async (req, res) => {
+    console.log("Server /prompt")
     if (!configuration.apiKey) {
         res.status(500).json({
             error: {
