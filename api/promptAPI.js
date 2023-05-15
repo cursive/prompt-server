@@ -13,6 +13,7 @@ const openai = new OpenAIApi(configuration);
 router.post('/prompt', async (req, res) => {
     console.log("Server /prompt")
     if (!configuration.apiKey) {
+        console.log("Server: OpenAI API key not configured, please follow instructions in README.md")
         res.status(500).json({
             error: {
                 message: "OpenAI API key not configured, please follow instructions in README.md",
@@ -25,6 +26,7 @@ router.post('/prompt', async (req, res) => {
     const article = req.body.article || '';
     const essay = req.body.essay || '';
     if (essay.trim().length === 0) {
+        console.log("Server: You haven't provided an essay to review")
         res.status(400).json({
             error: {
                 message: "You haven't provided an essay to review",
@@ -40,6 +42,7 @@ router.post('/prompt', async (req, res) => {
             prompt: generatePrompt(instructions, article, essay),
             temperature: 0.6,
         });
+        console.log("Server: 200 ok")
         res.status(200).json({ result: completion.data.choices[0].text });
     } catch (error) {
         // Consider adjusting the error handling logic for your use case
