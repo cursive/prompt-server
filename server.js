@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
+import basicAuth from 'basic-auth'; // Import basic-auth middleware
 dotenv.config({ path: './.env' });
 import exampleAPI from './api/exampleAPI.js';
 import promptAPI from './api/promptAPI.js';
@@ -17,6 +18,21 @@ if (process.env.NODE_ENV === 'replit') {
 }
 
 // Serve static files from the "static" directory
+app.use((req, res, next) => {
+    // Define your username and password
+    const username = 'essayreviewer';
+    const password = 'pencil-rubber-paper';
+
+    const credentials = basicAuth(req);
+
+    if (!credentials || credentials.name !== username || credentials.pass !== password) {
+        res.set('WWW-Authenticate', 'Basic realm="Authorization Required"');
+        res.sendStatus(401);
+        return;
+    }
+
+    next();
+});
 app.use(express.static('static'));
 
 // API code
