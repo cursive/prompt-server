@@ -138,7 +138,7 @@ var baseURL = remoteRoot
 
 function testSimple() {
     console.log("sending to simple..")
-    fetch('https://prompt-server--danielnacamuli.repl.co/api/message', {
+    fetch(baseURL + 'api/message', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -159,7 +159,7 @@ function testSimple() {
 function ai() {
     console.log("sending..")
     $(".bigButton").addClass("loading")
-    fetch(baseurl, {
+    fetch(baseURL + 'api/message', {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
