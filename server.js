@@ -5,7 +5,14 @@ import exampleAPI from './api/exampleAPI.js';
 import promptAPI from './api/promptAPI.js';
 
 
-console.log("in server", process.env.OPENAI_API_KEY)
+if (process.env.NODE_ENV === 'replit') {
+    // Replit environment, access secrets directly
+    console.log("Running on replit, ehre is the API key", process.env.OPENAI_API_KEY);
+} else {
+    // Local development environment, load .env file
+    dotenv.config({ path: './.env' });
+    console.log("Running on replit, ehre is the API key", process.env.OPENAI_API_KEY);
+}
 
 
 const app = express();
