@@ -52,9 +52,7 @@ function fakeIt() {
 }
 
 // /api/prompt
-var baseurl = "/api/prompt"
-var baseurl = "https://prompt-server--danielnacamuli.repl.co/public/prompt"
-var remoteurl = "https://migo-server.glitch.me/reviewessay"
+
 function populateText() {
     $("#fromStudent").html(ess);
     $("#instructions").val(inst)
@@ -132,6 +130,12 @@ function processFull() {
         }
     }
 }
+
+var remoteRoot = "https://prompt-server--danielnacamuli.repl.co/"
+var localRoot = "https://prompt-server--danielnacamuli.repl.co/"
+var baseURL = remoteRoot
+
+
 function testSimple() {
     console.log("sending to simple..")
     fetch('https://prompt-server--danielnacamuli.repl.co/api/message', {
