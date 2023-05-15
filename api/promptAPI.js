@@ -21,7 +21,7 @@ router.post('/prompt', async (req, res) => {
         });
         return;
     }
-
+    console.log("API Key OK, check if there's an essay")
     const instructions = req.body.instructions || '';
     const article = req.body.article || '';
     const essay = req.body.essay || '';
@@ -34,7 +34,7 @@ router.post('/prompt', async (req, res) => {
         });
         return;
     }
-
+    console.log("Server sending prompt to OPENAPI")
     try {
         const completion = await openai.createCompletion({
             model: "text-davinci-003",
