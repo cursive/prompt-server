@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rubric Detail</title>
+</head>
+
+<body>
+    <h1>Rubric Detail</h1>
+    <div id="rubricDetail">
+        <p>Loading rubric detail...</p>
+    </div>
+
+    <form id="rubricForm">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+        <br>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <div id="response"></div>
+
+    <script>
+        var remoteRoot = "https://prompt-server--danielnacamuli.repl.co/";
+        var localRoot = "http://localhost:3000/";
+        var baseURL = window.location.hostname === 'localhost' ? localRoot : remoteRoot;
+        // Get the id from the query parameter in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+
+        // Get the rubricDetail and response elements
+        const rubricDetail = document.getElementById('rubricDetail');
+        const response = document.getElementById('response');
+
+        // Fetch the specific rubric entry based on the id
+        fetch(`${baseURL}api/getRubricByID/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                // Display the rubric details
+                rubricDetail.innerHTML = `
+          <p>Title: ${data.title}</p>
+          <p>Description: ${data.description}</p>
+        `;
+
+                // Pre-fill the form fields with the current rubric data
+                document.getElementById('title').value = data.title;
+                document.getElementById('description').value = data.description;
+            })
+            .catch(error => console.error(error));
+
+        // Handle form submission
+        const rubricForm = document.getElementById('rubricForm');
+        rubricForm.addEventListener('submit', event => {
+            event.preventDefault();
+
+            // Get the updated title and description values from the form
+            const updatedTitle = document.getElementById('title').value;
+            const updatedDescription = document.getElementById('description').value;
+
+            // Make a PUT request to update the rubric entry
+            fetch(`${baseURL}api/updaterubric/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: updatedTitle,
+                    description: updatedDescription
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Display the server response
+                    response.textContent = `Server response: ${data.message}`;
+                })
+                .catch(error => console.error(error));
+        });
+    </script>
+</body>
+
+</html>

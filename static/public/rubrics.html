@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rubric List</title>
+</head>
+
+<body>
+    <h1>Rubric List</h1>
+    <ul id="rubricList"></ul>
+
+    <script>
+        var remoteRoot = "https://prompt-server--danielnacamuli.repl.co/";
+        var localRoot = "http://localhost:3000/";
+        var baseURL = window.location.hostname === 'localhost' ? localRoot : remoteRoot;
+        // Fetch rubric data from the /rubricata endpoint
+        fetch(baseURL + 'api/rubricdata')
+            .then(response => response.json())
+            .then(data => {
+                // Get the rubricList element
+                const rubricList = document.getElementById('rubricList');
+
+                // Iterate over the rubric data and create links
+                data.forEach(entry => {
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+
+                    // Set the link's text and URL
+                    link.textContent = entry.title;
+                    link.href = `updaterubric.html?id=${entry.udid}`; // Pass the udid as a query parameter
+
+                    // Append the link to the list item and the list item to the rubric list
+                    listItem.appendChild(link);
+                    rubricList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error(error));
+    </script>
+</body>
+
+</html>

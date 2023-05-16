@@ -161,7 +161,7 @@ function testSimple() {
 function ai() {
     console.log("sending..")
     $(".bigButton").addClass("loading")
-    fetch(baseURL + 'api/prompt', {
+    fetch(baseURL + 'api/openai', {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

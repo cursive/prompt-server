@@ -158,4 +158,34 @@ router.delete('/deleterubric/:id', (req, res) => {
     });
 });
 
+
+// Define API route to get rubric by ID
+router.get('/getRubricByID/:id', (req, res) => {
+    const id = req.params.id;
+
+    fs.readFile(rubricDataPath, 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: 'Failed to read rubricData file.' });
+        }
+
+        let rubricData = [];
+        if (data) {
+            try {
+                rubricData = JSON.parse(data);
+            } catch (parseError) {
+                console.error(parseError);
+                return res.status(500).json({ message: 'Failed to parse rubricData file.' });
+            }
+        }
+
+        const rubric = rubricData.find(entry => entry.udid === id);
+        if (!rubric) {
+            return res.status(404).json({ message: 'Rubric not found.' });
+        }
+
+        res.json(rubric);
+    });
+});
+
 export default router;
