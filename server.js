@@ -1,9 +1,12 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import basicAuth from 'basic-auth'; // Import basic-auth middleware
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path'; // Add this line
 dotenv.config({ path: './.env' });
 import exampleAPI from './api/exampleAPI.js';
-import promptAPI from './api/promptAPI.js';
+import openaiAPI from './api/openaiAPI.js';
+import rubricAPI from './api/rubricAPI.js';
 
 const app = express();
 const port = 3000;
@@ -18,27 +21,37 @@ if (process.env.NODE_ENV === 'replit') {
 }
 
 // Serve static files from the "static" directory
-app.use((req, res, next) => {
-    // Define your username and password
-    const username = 'essayreviewer';
-    const password = 'pencil-rubber-paper';
+app.use(express.static('static'));
 
-    const credentials = basicAuth(req);
+// Define authentication middleware
+const authenticate = (req, res, next) => {
+    const publicPath = join(dirname(fileURLToPath(import.meta.url)), 'static/public');
+    if (req.path.startsWith('/public') && !req.path.startsWith('/public/createrubric')) {
+        // Define your username and password
+        const username = 'essayreviewer';
+        const password = 'pencil-rubber-paper';
 
-    if (!credentials || credentials.name !== username || credentials.pass !== password) {
-        res.set('WWW-Authenticate', 'Basic realm="Authorization Required"');
-        res.sendStatus(401);
-        return;
+        const credentials = basicAuth(req);
+
+        if (!credentials || credentials.name !== username || credentials.pass !== password) {
+            res.set('WWW-Authenticate', 'Basic realm="Authorization Required"');
+            res.sendStatus(401);
+            return;
+        }
     }
 
     next();
-});
-app.use(express.static('static'));
+};
+
+// Apply authentication middleware
+app.use(authenticate);
 
 // API code
 app.use(express.json()); // Parse JSON request bodies
 app.use('/api', exampleAPI); // Mount example API at /api
-app.use('/api', promptAPI); // Mount prompt API at /api
+app.use('/api', openaiAPI); // Mount prompt API at /api
+app.use('/api', rubricAPI); // Mount example API at /api
+
 
 // Define root route
 app.get('/', (req, res) => {

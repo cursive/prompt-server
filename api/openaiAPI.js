@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config({ path: './.env' });
 
 const router = express.Router();
-console.log("promptAPI.js jsut started")
+console.log("openaiAPI.js jsut started")
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -12,7 +12,7 @@ const configuration = new Configuration({
 console.log("OpenAPI key", process.env.OPENAI_API_KEY)
 const openai = new OpenAIApi(configuration);
 
-router.post('/prompt', async (req, res) => {
+router.post('/openai', async (req, res) => {
     console.log("Server /prompt, key is", configuration.apiKey)
     if (!configuration.apiKey) {
         console.log("Server: OpenAI API key not configured, please follow instructions in README.md")
