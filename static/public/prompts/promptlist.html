@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Prompt List</title>
+</head>
+
+<body>
+    <h1>Prompt list</h1>
+    <ul id="promptList"></ul>
+
+    <script>
+        var remoteRoot = "https://prompt-server--danielnacamuli.repl.co/";
+        var localRoot = "http://localhost:3000/";
+        var baseURL = window.location.hostname === 'localhost' ? localRoot : remoteRoot;
+        // Fetch prompt data from the /promptata endpoint
+        fetch(baseURL + 'api/getAllPrompts')
+            .then(response => response.json())
+            .then(data => {
+                // Get the promptList element
+                const promptList = document.getElementById('promptList');
+
+                // Iterate over the prompt data and create links
+                data.forEach(entry => {
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+
+                    // Set the link's text and URL
+                    link.textContent = entry.promptTitle;
+                    link.href = `updateprompt.html?uuid=${entry.uuid}`; // Pass the udid as a query parameter
+
+                    // Append the link to the list item and the list item to the prompt list
+                    listItem.appendChild(link);
+                    promptList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error(error));
+    </script>
+</body>
+
+</html>

@@ -7,6 +7,7 @@ dotenv.config({ path: './.env' });
 import exampleAPI from './api/exampleAPI.js';
 import openaiAPI from './api/openaiAPI.js';
 import rubricAPI from './api/rubricAPI.js';
+import promptAPI from './api/promptAPI.js';
 
 const app = express();
 const port = 3000;
@@ -51,6 +52,7 @@ app.use(express.json()); // Parse JSON request bodies
 app.use('/api', exampleAPI); // Mount example API at /api
 app.use('/api', openaiAPI); // Mount prompt API at /api
 app.use('/api', rubricAPI); // Mount example API at /api
+app.use('/api', promptAPI); // Mount example API at /api
 
 
 // Define root route

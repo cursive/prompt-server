@@ -1,6 +1,9 @@
 
 var fakeMode = false;
 var jsonData;
+var remoteRoot = "https://prompt-server--danielnacamuli.repl.co/";
+var localRoot = "http://localhost:3000/";
+var baseURL = window.location.hostname === 'localhost' ? localRoot : remoteRoot;
 
 //Init and events
 $(function () {
@@ -9,6 +12,7 @@ $(function () {
     }
     initButtons()
     populateText()
+    getPrompts()
 
 
 
@@ -131,9 +135,7 @@ function processFull() {
     }
 }
 
-var remoteRoot = "https://prompt-server--danielnacamuli.repl.co/";
-var localRoot = "http://localhost:3000/";
-var baseURL = window.location.hostname === 'localhost' ? localRoot : remoteRoot;
+
 
 
 
@@ -156,7 +158,22 @@ function testSimple() {
         });
 }
 
-
+function getPrompts() {
+    console.log("getting prompts..")
+    fetch(baseURL + 'api/getAllPrompts')
+        .then(response => response.json())
+        .then(data => {
+            // Populate the dropdown with prompts
+            var promptDropdown = document.getElementById('promptDropdown');
+            data.forEach(prompt => {
+                var option = document.createElement('option');
+                option.value = prompt.uuid;
+                option.text = prompt.promptTitle;
+                promptDropdown.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+}
 
 function ai() {
     console.log("sending..")

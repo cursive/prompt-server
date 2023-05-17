@@ -8,9 +8,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-//const dataFolderPath = join(__dirname, 'data');
-//const rubricDataPath = join(dataFolderPath, 'rubricData.json');
 const rubricDataPath = join(dirname(dirname(__filename)), 'data', 'rubricData.json');
 
 
