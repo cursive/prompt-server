@@ -4,6 +4,7 @@ var jsonData;
 var remoteRoot = "https://prompt-server--danielnacamuli.repl.co/";
 var localRoot = "http://localhost:3000/";
 var baseURL = window.location.hostname === 'localhost' ? localRoot : remoteRoot;
+var allPrompts
 
 //Init and events
 $(function () {
@@ -20,6 +21,7 @@ $(function () {
 
 
 function initButtons() {
+
     $(".bigButton").click(function () {
         $('.bigButton').off('click.mynamespace');
         ai()
@@ -59,8 +61,8 @@ function fakeIt() {
 
 function populateText() {
     $("#fromStudent").html(ess);
-    $("#instructions").val(inst)
-    $("#article").val(art)
+    // $("#instructions").val(inst)
+    //$("#article").val(art)
 }
 
 function createJson(data) {
@@ -171,6 +173,8 @@ function getPrompts() {
                 option.text = prompt.promptTitle;
                 promptDropdown.appendChild(option);
             });
+            allPrompts = data;
+            console.log(data);
         })
         .catch(error => console.error('Error:', error));
 }
@@ -185,21 +189,24 @@ function ai() {
         },
         //body: JSON.stringify({ essay: document.getElementById("essayTextArea").value }),
         body: JSON.stringify({
-            instructions: document.getElementById("instructions").value,
-            article: document.getElementById("article").value,
-            essay: document.getElementById("fromStudent").textContent
+            // instructions: document.getElementById("instructions").value,
+            // article: art,
+            // essay: ess
+            promptinfo: allPrompts[2].promptDescription
 
         }),
     })
         .then(response => {
             if (response.status !== 200) {
+                console.log(response);
                 throw new Error(`Request failed with status ${response.status}`);
             }
             return response.json();
         })
         .then(data => {
             console.log("Data received")
-            console.log(data.result)
+            console.log(data)
+            //console.log(data.result)
             $(".bigButton").removeClass("loading")
             $(".bigButton").addClass("loaded")
             createJson(data.result)
