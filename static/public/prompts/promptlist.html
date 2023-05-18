@@ -6,6 +6,12 @@
 </head>
 
 <body>
+    <div class="nav">
+        <a href="../../">Home</a>
+        <a href="../prompts/promptlist.html">Prompts</a>
+        <a href="../rubrics/rubriclist.html">Rubrics</a>
+        <a href="../index.html">Essay</a>
+    </div>
     <h1>Prompt list</h1>
     <ul id="promptList"></ul>
 
@@ -24,17 +30,41 @@
                 data.forEach(entry => {
                     const listItem = document.createElement('li');
                     const link = document.createElement('a');
+                    const deleteButton = document.createElement('button'); // Create a delete button
 
                     // Set the link's text and URL
-                    link.textContent = entry.promptTitle;
+                    link.textContent = entry.title;
                     link.href = `updateprompt.html?uuid=${entry.uuid}`; // Pass the udid as a query parameter
+
+                    // Set the delete button's text and add an event listener
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.addEventListener('click', () => {
+                        deletePrompt(entry.uuid); // Call the deleteRubric function passing the uuid
+                    });
+
 
                     // Append the link to the list item and the list item to the prompt list
                     listItem.appendChild(link);
+                    listItem.appendChild(deleteButton);
                     promptList.appendChild(listItem);
                 });
             })
             .catch(error => console.error(error));
+        function deletePrompt(uuid) {
+            const confirmed = window.confirm('Are you sure you want to delete this prompt?');
+            if (confirmed) {
+                // Call the API's delete method using fetch
+                fetch(baseURL + 'api/deleteprompt/' + uuid, {
+                    method: 'DELETE'
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data); // Log the response from the API
+                        location.reload();
+                    })
+                    .catch(error => console.error(error));
+            }
+        }
     </script>
     <button onclick="window.location.href=baseURL+'public/prompts/createprompt.html?';">
         New Prompt

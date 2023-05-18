@@ -8,7 +8,13 @@
 </head>
 
 <body>
-    <h1>Update Prompt</h1>
+    <div class="nav">
+        <a href="../../">Home</a>
+        <a href="../prompts/promptlist.html">Prompts</a>
+        <a href="../rubrics/rubriclist.html">Rubrics</a>
+        <a href="../index.html">Essay</a>
+    </div>
+    <h1>Updating Prompt</h1>
 
     <form id="updateForm">
         <label for="title">Title:</label>
@@ -16,7 +22,7 @@
         <br>
         <label for="description">Description:</label>
         <textarea id="description" name="description" required
-            style="width: 100%; height: 100%; font-family: Arial; font-size: 14px;"></textarea>
+            style="width: 100%; height: 600px; font-family: Arial; font-size: 14px;"></textarea>
 
 
 
@@ -46,8 +52,8 @@
             .then(response => response.json())
             .then(prompt => {
 
-                titleInput.value = prompt.promptTitle;
-                descriptionInput.value = prompt.promptDescription;
+                titleInput.value = prompt.title;
+                descriptionInput.value = prompt.description;
                 dateField.textContent = `Last Updated: ${prompt.date}`;
             })
             .catch(error => {
@@ -59,8 +65,8 @@
             event.preventDefault();
 
             const updatedPrompt = {
-                promptTitle: titleInput.value,
-                promptDescription: descriptionInput.value
+                title: titleInput.value,
+                description: descriptionInput.value
             };
 
             fetch(baseURL + `api/updatePrompt/${uuid}`, {

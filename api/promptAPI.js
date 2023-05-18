@@ -10,13 +10,13 @@ const promptDataPath = join(dirname(dirname(__filename)), 'data', 'promptData.js
 
 // Create a prompt and append it to the JSON file
 router.post('/createPrompt', (req, res) => {
-    const { promptTitle, promptDescription, promptAuthor } = req.body;
+    const { title, description, author } = req.body;
     const currentDate = new Date().toISOString();
     const prompt = {
         uuid: uuidv4(),
-        promptTitle,
-        promptDescription,
-        promptAuthor,
+        title,
+        description,
+        author,
         date: currentDate
     };
 
@@ -104,7 +104,7 @@ router.get('/getSinglePrompt/:uuid', (req, res) => {
 // Update a prompt by UUID
 router.put('/updatePrompt/:uuid', (req, res) => {
     const { uuid } = req.params;
-    const { promptTitle, promptDescription, promptAuthor } = req.body;
+    const { title, description, author } = req.body;
 
     fs.readFile(promptDataPath, 'utf8', (err, data) => {
         if (err) {
@@ -129,9 +129,9 @@ router.put('/updatePrompt/:uuid', (req, res) => {
 
         const updatedPrompt = {
             ...promptData[promptIndex],
-            promptTitle: promptTitle || promptData[promptIndex].promptTitle,
-            promptDescription: promptDescription || promptData[promptIndex].promptDescription,
-            promptAuthor: promptAuthor || promptData[promptIndex].promptAuthor
+            title: title || promptData[promptIndex].title,
+            description: description || promptData[promptIndex].description,
+            author: author || promptData[promptIndex].author
         };
 
         promptData[promptIndex] = updatedPrompt;

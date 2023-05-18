@@ -57,7 +57,13 @@ app.use('/api', promptAPI); // Mount example API at /api
 
 // Define root route
 app.get('/', (req, res) => {
-    res.send('Hello, World!');
+    const htmlContent = `
+        <h1>Essay Review</h1>
+        <a href="public/index.html">Essay review</a>
+        <a href="public/prompts/promptlist.html">List of prompts</a>
+        <a href="public/rubrics/rubriclist.html">List of rubrics</a>
+    `;
+    res.send(htmlContent);
 });
 
 // Start the server
