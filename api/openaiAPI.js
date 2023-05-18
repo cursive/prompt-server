@@ -24,27 +24,40 @@ router.post('/openai', async (req, res) => {
         return;
     }
     console.log("API Key OK, check if there's an essay")
-    const instructions = req.body.instructions || '';
-    const article = req.body.article || '';
-    const essay = req.body.essay || '';
-    if (essay.trim().length === 0) {
-        console.log("Server: You haven't provided an essay to review")
-        res.status(400).json({
-            error: {
-                message: "You haven't provided an essay to review",
-            }
-        });
-        return;
-    }
+    //const instructions = req.body.instructions || '';
+    //const article = req.body.article || '';
+    //const essay = req.body.essay || '';
+    // if (req.body.trim().length === 0) {
+    //     console.log("Server: You haven't provided an essay to review")
+    //     res.status(400).json({
+    //         error: {
+    //             message: "You haven't provided an essay to review",
+    //         }
+    //     });
+    //     return;
+    // }
+
+
+
+    var promptintro = req.body.prompt || '';
+    promptintro = promptintro.replace(/\n/g, '');
+    var rubric = req.body.rubric || '';
+    rubric = rubric.replace(/\n/g, '');
+    const rubricString = JSON.stringify(rubric);
+    console.log("Sending this to server")
+    console.log(promptintro + rubric)
     console.log("Server sending prompt to OPENAPI")
     try {
         const completion = await openai.createCompletion({
             model: "text-davinci-003",
             max_tokens: 2000,
-            prompt: generatePrompt(instructions, article, essay),
+            //prompt: generatePrompt(),
+            prompt: promptintro + rubricString,
             temperature: 0.6,
         });
-        console.log("Server: 200 ok")
+        console.log("Server: 200 ok, show data")
+        console.log(completion.data)
+        console.log("end data")
         res.status(200).json({ result: completion.data.choices[0].text });
     } catch (error) {
         // Consider adjusting the error handling logic for your use case
@@ -65,76 +78,8 @@ router.post('/openai', async (req, res) => {
 
 
 
-function generatePrompt(instructions, article, essay) {
-    return ` 
-
-YOUR TASK:
-Review a student's SAT essay.
-The student will analyze a passage of text, then write an essay about the passage using instructions provided to her.
-I will provide you with a student's SAT essay, the text she analyzed, the instructions she was given, and then SAT scoring rubric.
-
-
-HERE IS THE PASSAGE THE STUDENT ANALYZED:
-${article}
-
-HERE ARE THE INSTRUCTIONS GIVEN TO THE STUDENT:
-${instructions}
-
-HERE IS THE STUDENT"S ESSAY
-${essay}
-
-WHO YOU ARE
-You are demanding and detailed high school teacher. You believe in your students, but know that they need to be pushed to do their best. You are not afraid to give them harsh feedback, but you also know that you need to be encouraging and constructive. When in doubt, you score lower.
-
-HERE ARE YOUR INSTRUCTIONS FOR REVIEWING THE ESSAY
-
-Refer to the SAT scoring rubric which you can find here https://satsuite.collegeboard.org/sat/scores/understanding-scores/essay
-You will review the essay using the SAT scoring rubric across the three categories: reading, analysis, and writing.
-
-You will give targeted feedback on specific passages in the essay, and then you will give overall feedback on the essay.
-
-Always address yourself directly to the student, so instead of  saying "The student demonstrates .." you simply say "You demonstrate .."
-
-You will return all of your feedback in a JSON object called "fullResults" that has two keys:
-Key 1:"targetedFeedback" where the value is an array of objects containing the quote, feedback, dimension, and score for each passage you are giving feedback on.
-Key 2: "overallFeedback" - where the value is an array of 3 objects that contain detailed feedback on each of the three categories: reading, analysis, and writing.
-
-
-var fullResults = {
- "targetedFeedback": [
-   {
-     "quote": "the passage from the essay you are giving feedback on",
-     "feedback": "your feedback, based on the SAT scoring rubric. Please focus on the weaker parts of the essay. About 300 characters",
-     "dimension": "The dimension of feedback:reading, analysis, or writing",
-     "score": "Your score based on the SAT scoring rubric
-   },
-...
- ],
- "overallFeedback": [
-   {
-     "dimension": "writing",
-     "score": "Your score from 1 to 4, where 1 is low and 4 is perfect",
-     "feedback": "your detailed analysis (about 150 words) of how well the student wrote the entire essay, based on the SAT scoring rubric."
-   },
-   {
-     "dimension": "analysis",
-     "score": "Your score from 1 to 4, where 1 is low and 4 is perfect",
-     "feedback": "your detailed analysis (about 150 words) of how well the student analyzed the text they had to read,  based on the SAT scoring rubric."
-   },
-   {
-      "dimension": "reading",
-     "score": "Your score from 1 to 4, where 1 is low and 4 is perfect",
-     "feedback": "your detailed analysis (about 150 words) of how good the students reading is of this essay as a whole is,  based on the SAT scoring rubric."
-   },
-   {
-      "dimension": "improvements",
-     "score": "",
-     "feedback": "Constructive feedback on how to improve, in about 150 words"
-   }
- ]
-};
-
-`;
+function generatePrompt(prompt, rubric) {
+    return prompt + rubric;
 }
 
 

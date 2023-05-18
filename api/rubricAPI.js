@@ -16,13 +16,13 @@ router.post('/createrubric', (req, res) => {
     const { title } = req.body;
     const description = 'Some description'; // Replace with your desired description
     const currentDate = new Date().toISOString(); // Get current date
-    const udid = uuidv4(); // Generate UUID
+    const uuid = uuidv4(); // Generate UUID
 
     const newEntry = {
         title,
         description,
         currentDate,
-        udid
+        uuid
     };
 
     fs.readFile(rubricDataPath, 'utf8', (err, data) => {
@@ -55,7 +55,7 @@ router.post('/createrubric', (req, res) => {
     });
 });
 
-router.get('/rubricdata', (req, res) => {
+router.get('/getAllRubrics', (req, res) => {
     fs.readFile(rubricDataPath, 'utf8', (err, data) => {
         if (err) {
             console.error(err);
@@ -79,13 +79,13 @@ router.get('/rubricdata', (req, res) => {
 router.put('/updaterubric/:id', (req, res) => {
     const { id } = req.params;
     const { title, description } = req.body;
-
+    console.log("Server /updaterubricAPI", id, title, description)
     fs.readFile(rubricDataPath, 'utf8', (err, data) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ message: 'Failed to read rubricData file.' });
         }
-
+        console.log("Server /updaterubricAPI", data)
         let rubricData = [];
         if (data) {
             try {
@@ -96,7 +96,7 @@ router.put('/updaterubric/:id', (req, res) => {
             }
         }
 
-        const existingEntry = rubricData.find((entry) => entry.udid === id);
+        const existingEntry = rubricData.find((entry) => entry.uuid === id);
         if (!existingEntry) {
             return res.status(404).json({ message: 'Rubric entry not found.' });
         }
@@ -119,7 +119,7 @@ router.put('/updaterubric/:id', (req, res) => {
 
 router.delete('/deleterubric/:id', (req, res) => {
     const { id } = req.params;
-
+    console.log("Server /deleterubricAPI", id)
     fs.readFile(rubricDataPath, 'utf8', (err, data) => {
         if (err) {
             console.error(err);
@@ -136,7 +136,7 @@ router.delete('/deleterubric/:id', (req, res) => {
             }
         }
 
-        const index = rubricData.findIndex((entry) => entry.udid === id);
+        const index = rubricData.findIndex((entry) => entry.uuid === id);
         if (index === -1) {
             return res.status(404).json({ message: 'Rubric entry not found.' });
         }
@@ -157,7 +157,7 @@ router.delete('/deleterubric/:id', (req, res) => {
 
 
 // Define API route to get rubric by ID
-router.get('/getRubricByID/:id', (req, res) => {
+router.get('/getSingleRubric/:id', (req, res) => {
     const id = req.params.id;
 
     fs.readFile(rubricDataPath, 'utf8', (err, data) => {
@@ -176,7 +176,7 @@ router.get('/getRubricByID/:id', (req, res) => {
             }
         }
 
-        const rubric = rubricData.find(entry => entry.udid === id);
+        const rubric = rubricData.find(entry => entry.uuid === id);
         if (!rubric) {
             return res.status(404).json({ message: 'Rubric not found.' });
         }
