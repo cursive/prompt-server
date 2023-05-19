@@ -59,9 +59,9 @@ app.use('/api', promptAPI); // Mount example API at /api
 app.get('/', (req, res) => {
     const htmlContent = `
         <h1>Essay Review</h1>
-        <a href="public/index.html">Essay review</a>
+        <a href="public/essayreview/index.html">Essay review</a>
         <a href="public/prompts/promptlist.html">List of prompts</a>
-        <a href="public/rubrics/rubriclist.html">List of rubrics</a>
+        <a href="public/prompts/rubriclist.html">List of rubrics</a>
     `;
     res.send(htmlContent);
 });
