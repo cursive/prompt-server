@@ -43,8 +43,7 @@ const authenticate = (req, res, next) => {
     next();
 };
 
-// Apply authentication middleware to public folder
-app.use('/public', authenticate);
+
 
 // Apply authentication middleware
 app.use(authenticate);
