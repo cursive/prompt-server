@@ -20,6 +20,7 @@ $(function () {
 
 
 
+
 });
 
 
@@ -32,7 +33,12 @@ function initButtons() {
     $(".test").click(function () {
         testSimple()
     })
-
+    $(".showrubric,.close").click(function () {
+        toggleRubric()
+    });
+    $("#rubricDropdown").change(function () {
+        updateRubric($(this).prop('selectedIndex') - 1);
+    });
 
     $(document).on('click', '.ph-pencil', function () {
         editComment($(this).parent().parent().parent().data("id"))
@@ -201,8 +207,10 @@ function getPrompts() {
             });
             allRubrics = data;
             console.log(data);
+            updateRubric(0)
         })
         .catch(error => console.error('Error:', error));
+
 }
 
 function ai() {
@@ -245,6 +253,19 @@ function ai() {
         });
 }
 
+function updateRubric(id) {
+    console.log(id, "dsa", allRubrics)
+    $(".rubric h4").text(allRubrics[id].title + " rubric");
+    $(".showrubric").text(allRubrics[id].title + " rubric");
+    $(".rubric p").text(allRubrics[id].description);
+}
+
+function toggleRubric() {
+    console.log("toggle rubric")
+    //use jquery to toggle the dispaly of the rubric when the button  .toggle is clicked
+    $(".rubric").toggleClass("hidden")
+
+}
 
 function rejectComment(commentID) {
     $(".comment[data-id='" + commentID + "']").removeClass("animate__animated animate__fadeIn animate__delay-0s")

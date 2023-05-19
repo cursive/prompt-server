@@ -11,12 +11,17 @@
 
 <body>
     <div class="nav">
-        <a href="../../">Home</a>
         <a href="../prompts/promptlist.html">Prompts</a>
         <a href="../prompts/rubriclist.html">Rubrics</a>
         <a href="../essayreview/index.html">Essay</a>
     </div>
-    <h1>Rubric List</h1>
+    <div class="header">
+        <h1>Rubric list</h1>
+        <button onclick="window.location.href=baseURL+'public/prompts/createrubric.html?';">
+            New Rubric
+        </button>
+    </div>
+
     <ul id="pageList"></ul>
 
     <script>
@@ -79,9 +84,7 @@
         }
 
     </script>
-    <button onclick="window.location.href=baseURL+'public/prompts/createrubric.html?';">
-        New Rubric
-    </button>
+
 </body>
 
 </html>

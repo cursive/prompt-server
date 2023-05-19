@@ -45,7 +45,7 @@ router.post('/createPrompt', (req, res) => {
             }
 
             console.log('createPrompt', prompt);
-            res.json({ message: 'Prompt created successfully.' });
+            res.json({ message: 'Rubric entry created successfully.', uuid: prompt.uuid });
         });
     });
 });

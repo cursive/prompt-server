@@ -11,14 +11,18 @@
 
 <body>
     <div class="nav">
-        <a href="../../">Home</a>
         <a href="../prompts/promptlist.html">Prompts</a>
         <a href="../prompts/rubriclist.html">Rubrics</a>
         <a href="../essayreview/index.html">Essay</a>
     </div>
-    <h1>Rubric Detail</h1>
-    <div id="rubricDetail">
-        <p>Loading rubric detail...</p>
+
+
+    <div class="header">
+        <h1>Rubric details</h1>
+        <p id="updateMessage" style="display: none;">Rubric saved</p>
+        <button onclick="submitForm();">
+            Save
+        </button>
     </div>
 
     <form id="rubricForm">
@@ -40,51 +44,61 @@
         var baseURL = window.location.hostname === 'localhost' ? localRoot : remoteRoot;
         // Get the id from the query parameter in the URL
         const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('uuid');
-
+        const uuid = urlParams.get('uuid');
+        const updateForm = document.getElementById('updateForm');
+        const titleInput = document.getElementById('title');
+        const descriptionInput = document.getElementById('description');
+        const updateMessage = document.getElementById('updateMessage');
         // Get the rubricDetail and response elements
-        const rubricDetail = document.getElementById('rubricDetail');
-        const response = document.getElementById('response');
-        console.log("fetching", id)
+        console.log("fetching", uuid)
         // Fetch the specific rubric entry based on the id
-        fetch(`${baseURL}api/getSingleRubric/${id}`)
+        fetch(`${baseURL}api/getSingleRubric/${uuid}`)
             .then(response => response.json())
             .then(data => {
+                titleInput.value = data.title;
+                descriptionInput.value = data.description;
 
-                console.log("data", data)
-                // Pre-fill the form fields with the current rubric data
-                document.getElementById('title').value = data.title;
-                document.getElementById('description').value = data.description;
             })
+
             .catch(error => console.error(error));
 
-        // Handle form submission
-        const rubricForm = document.getElementById('rubricForm');
-        rubricForm.addEventListener('submit', event => {
-            event.preventDefault();
 
-            // Get the updated title and description values from the form
-            const updatedTitle = document.getElementById('title').value;
-            const updatedDescription = document.getElementById('description').value;
+        // Submit the updated prompt data
+        function submitForm() {
+            const updatedRubric = {
+                title: titleInput.value,
+                description: descriptionInput.value
+            };
 
-            // Make a PUT request to update the rubric entry
-            fetch(`${baseURL}api/updaterubric/${id}`, {
+            fetch(baseURL + `api/updaterubric/${uuid}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    title: updatedTitle,
-                    description: updatedDescription
-                })
+                body: JSON.stringify(updatedRubric)
             })
                 .then(response => response.json())
-                .then(data => {
-                    // Display the server response
-                    response.textContent = `Server response: ${data.message}`;
+                .then(result => {
+                    updateMessage.style.display = 'block';
+                    setTimeout(() => {
+                        updateMessage.style.display = 'none';
+                    }, 2000);
                 })
-                .catch(error => console.error(error));
+                .catch(error => {
+                    console.error(error);
+                    alert('Failed to update rubric. Please try again.');
+                });
+        }
+
+        titleInput.addEventListener('input', () => {
+            updateMessage.style.display = 'none';
         });
+
+        descriptionInput.addEventListener('input', () => {
+            updateMessage.style.display = 'none';
+        });
+
+
     </script>
 </body>
 
