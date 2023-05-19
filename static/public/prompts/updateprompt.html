@@ -5,16 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Prompt</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
+
 </head>
 
 <body>
     <div class="nav">
         <a href="../../">Home</a>
         <a href="../prompts/promptlist.html">Prompts</a>
-        <a href="../rubrics/rubriclist.html">Rubrics</a>
-        <a href="../index.html">Essay</a>
+        <a href="../prompts/rubriclist.html">Rubrics</a>
+        <a href="../essayreview/index.html">Essay</a>
     </div>
-    <h1>Updating Prompt</h1>
+    <div class="header">
+        <h1>Update Prompt</h1>
+        <p id="updateMessage" style="display: none;">Prompt updated</p>
+        <button onclick="submitForm();">
+            Update
+        </button>
+    </div>
+
 
     <form id="updateForm">
         <label for="title">Title:</label>
@@ -28,9 +39,8 @@
 
         <p id="date"></p>
 
-        <p id="updateMessage" style="display: none;">Prompt updated</p>
 
-        <input type="submit" value="Update">
+
     </form>
 
     <script>
@@ -61,9 +71,7 @@
             });
 
         // Submit the updated prompt data
-        updateForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-
+        function submitForm() {
             const updatedPrompt = {
                 title: titleInput.value,
                 description: descriptionInput.value
@@ -87,11 +95,11 @@
                     console.error(error);
                     alert('Failed to update prompt. Please try again.');
                 });
-        });
+        }
 
         // Hide the update message when the user starts typing again
         titleInput.addEventListener('input', () => {
-            updateMessage.style.display = 'none';
+            updateMessage.style.opacity = 'none';
         });
 
         descriptionInput.addEventListener('input', () => {

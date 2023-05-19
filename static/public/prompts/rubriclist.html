@@ -3,17 +3,21 @@
 
 <head>
     <title>Rubric List</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
+
 </head>
 
 <body>
-    <h1>Rubric List</h1>
     <div class="nav">
         <a href="../../">Home</a>
         <a href="../prompts/promptlist.html">Prompts</a>
-        <a href="../rubrics/rubriclist.html">Rubrics</a>
-        <a href="../index.html">Essay</a>
+        <a href="../prompts/rubriclist.html">Rubrics</a>
+        <a href="../essayreview/index.html">Essay</a>
     </div>
-    <ul id="rubricList"></ul>
+    <h1>Rubric List</h1>
+    <ul id="pageList"></ul>
 
     <script>
         var remoteRoot = "https://prompt-server--danielnacamuli.repl.co/";
@@ -23,16 +27,18 @@
         fetch(baseURL + 'api/getAllRubrics')
             .then(response => response.json())
             .then(data => {
-                // Get the rubricList element
-                const rubricList = document.getElementById('rubricList');
+                // Get the pageList element
+                const pageList = document.getElementById('pageList');
 
                 // Iterate over the rubric data and create links
+
                 data.forEach(entry => {
                     const listItem = document.createElement('li');
+                    const linkDiv = document.createElement('div'); // Create a div element for the link
+                    linkDiv.classList.add('link'); // Add the "link" class to the div
                     const link = document.createElement('a');
                     const deleteButton = document.createElement('button'); // Create a delete button
-
-
+                    deleteButton.classList.add('inline'); // Add the "link" class to the div
                     // Set the link's text and URL
                     link.textContent = entry.title;
                     link.href = `updaterubric.html?uuid=${entry.uuid}`; // Pass the uuid as a query parameter
@@ -40,13 +46,17 @@
                     // Set the delete button's text and add an event listener
                     deleteButton.textContent = 'Delete';
                     deleteButton.addEventListener('click', () => {
-                        deleteRubric(entry.uuid); // Call the deleteRubric function passing the uuid
+                        deleteRubric(entry.uuid); // Call the deletePrompt function passing the uuid
                     });
 
-                    // Append the link to the list item and the list item to the rubric list
-                    listItem.appendChild(link);
+                    // Append the link to the link div
+                    linkDiv.appendChild(link);
+
+                    // Append the link div and delete button to the list item
+                    listItem.appendChild(linkDiv);
                     listItem.appendChild(deleteButton);
-                    rubricList.appendChild(listItem);
+
+                    pageList.appendChild(listItem);
                 });
             })
             .catch(error => console.error(error));
@@ -69,7 +79,7 @@
         }
 
     </script>
-    <button onclick="window.location.href=baseURL+'public/rubrics/createrubric.html?';">
+    <button onclick="window.location.href=baseURL+'public/prompts/createrubric.html?';">
         New Rubric
     </button>
 </body>
