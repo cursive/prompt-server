@@ -21,7 +21,7 @@
             New Rubric
         </button>
     </div>
-
+    <p class="warning">Please do not delete the first item</p>
     <ul id="pageList"></ul>
 
     <script>
@@ -36,18 +36,20 @@
                 const pageList = document.getElementById('pageList');
 
                 // Iterate over the rubric data and create links
-
+                console.log(data)
                 data.forEach(entry => {
                     const listItem = document.createElement('li');
                     const linkDiv = document.createElement('div'); // Create a div element for the link
                     linkDiv.classList.add('link'); // Add the "link" class to the div
                     const link = document.createElement('a');
+                    const dateItem = document.createElement('div');
+                    dateItem.classList.add('date');
                     const deleteButton = document.createElement('button'); // Create a delete button
                     deleteButton.classList.add('inline'); // Add the "link" class to the div
                     // Set the link's text and URL
                     link.textContent = entry.title;
                     link.href = `updaterubric.html?uuid=${entry.uuid}`; // Pass the uuid as a query parameter
-
+                    dateItem.textContent = entry.currentDate;
                     // Set the delete button's text and add an event listener
                     deleteButton.textContent = 'Delete';
                     deleteButton.addEventListener('click', () => {
@@ -59,6 +61,7 @@
 
                     // Append the link div and delete button to the list item
                     listItem.appendChild(linkDiv);
+                    listItem.appendChild(dateItem);
                     listItem.appendChild(deleteButton);
 
                     pageList.appendChild(listItem);
