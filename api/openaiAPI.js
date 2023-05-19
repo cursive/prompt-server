@@ -44,9 +44,8 @@ router.post('/openai', async (req, res) => {
     var rubric = req.body.rubric || '';
     rubric = rubric.replace(/\n/g, '');
     const rubricString = JSON.stringify(rubric);
-    console.log("Sending this to server")
-    console.log(promptintro + rubric)
-    console.log("Server sending prompt to OPENAPI")
+    console.log("Sending prompt and rubric to OpenAI")
+    //console.log(promptintro + rubric)
     try {
         const completion = await openai.createCompletion({
             model: "text-davinci-003",

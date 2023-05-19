@@ -1,18 +1,10 @@
-// @font-face {
-//   font-family: "ColfaxAI";
-//   src: url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff2) format("woff2"),
-//     url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff) format("woff");
-//   font-weight: normal;
-//   font-style: normal;
-// }
+$lightgreen: #DEEAE0;
+$lightorange: #E7E7D9;
+$lightred: #E6DBDB;
+$blue: #1865F2;
 
-// @font-face {
-//   font-family: "ColfaxAI";
-//   src: url(https://cdn.openai.com/API/fonts/ColfaxAIBold.woff2) format("woff2"),
-//     url(https://cdn.openai.com/API/fonts/ColfaxAIBold.woff) format("woff");
-//   font-weight: bold;
-//   font-style: normal;
-// }
+
+
 
 * {
   font-family: 'Lato', sans-serif;
@@ -156,6 +148,7 @@ body {
     transition: 300ms;
   }
 
+  box-sizing:border-box;
   width: 360px;
   padding: 8px;
   padding-top: 16px;
@@ -169,19 +162,19 @@ body {
 
 
   &.score1 {
-    background-color: #E6DBDB;
+    background-color: $lightred;
   }
 
   &.score2 {
-    background-color: #E6DBDB;
+    background-color: $lightorange;
   }
 
   &.score3 {
-    background-color: #E7E7D9;
+    background-color: $lightorange;
   }
 
   &.score4 {
-    background-color: #DEEAE0;
+    background-color: $lightgreen;
   }
 
   &.hovering {
@@ -189,7 +182,16 @@ body {
     background-color: #ff0000;
   }
 
+  &:hover {
+    outline: solid 2px rgba($color: #000000, $alpha: 0.5);
+    outline-offset: -2px;
+  }
 
+  &.triggeredhover {
+    // border: 5px solid rgba($color: #000000, $alpha: 0.5)
+    outline: solid 2px rgba($color: #000000, $alpha: 0.5);
+    outline-offset: -2px;
+  }
 
   &.approved {
     background-color: #d9dde7;
@@ -206,6 +208,7 @@ body {
     .ph-thumbs-down {
       opacity: 0;
     }
+
 
 
   }
@@ -297,24 +300,36 @@ body {
 
 .quote {
   &.score1 {
-    background-color: #fbdddd;
+    background-color: $lightred;
   }
 
   &.score2 {
-    background-color: #fbdddd;
+    background-color: $lightred;
   }
 
   &.score3 {
-    background-color: #f4ebd0;
+    background-color: $lightorange;
   }
 
   &.score4 {
-    background-color: #ebffe1;
+    background-color: $lightgreen;
   }
 
   &.rejected {
     background-color: #ffffff !important;
   }
+
+  filter: brightness(104%);
+
+  &.triggeredhover,
+  &:hover {
+    filter: saturate(4) brightness(100%);
+  }
+
+  // &:hover {
+  //   filter: saturate(3);
+
+  // }
 }
 
 .comment.score1 .face::before {

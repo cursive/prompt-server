@@ -115,6 +115,7 @@ body {
 }
 
 .comment {
+  box-sizing: border-box;
   width: 360px;
   padding: 8px;
   padding-top: 16px;
@@ -131,7 +132,7 @@ body {
   background-color: #E6DBDB;
 }
 .comment.score2 {
-  background-color: #E6DBDB;
+  background-color: #E7E7D9;
 }
 .comment.score3 {
   background-color: #E7E7D9;
@@ -142,6 +143,14 @@ body {
 .comment.hovering {
   stroke: 1px solid #666666;
   background-color: #ff0000;
+}
+.comment:hover {
+  outline: solid 2px rgba(0, 0, 0, 0.5);
+  outline-offset: -2px;
+}
+.comment.triggeredhover {
+  outline: solid 2px rgba(0, 0, 0, 0.5);
+  outline-offset: -2px;
 }
 .comment.approved {
   background-color: #d9dde7;
@@ -212,20 +221,26 @@ body {
   width: 640px;
 }
 
+.quote {
+  filter: brightness(104%);
+}
 .quote.score1 {
-  background-color: #fbdddd;
+  background-color: #E6DBDB;
 }
 .quote.score2 {
-  background-color: #fbdddd;
+  background-color: #E6DBDB;
 }
 .quote.score3 {
-  background-color: #f4ebd0;
+  background-color: #E7E7D9;
 }
 .quote.score4 {
-  background-color: #ebffe1;
+  background-color: #DEEAE0;
 }
 .quote.rejected {
   background-color: #ffffff !important;
+}
+.quote.triggeredhover, .quote:hover {
+  filter: saturate(4) brightness(100%);
 }
 
 .comment.score1 .face::before {

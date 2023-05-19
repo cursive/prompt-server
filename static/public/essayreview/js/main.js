@@ -11,12 +11,13 @@ var rubricDropdown = document.getElementById('rubricDropdown');
 
 //Init and events
 $(function () {
-    if (fakeMode) {
-        fakeIt();
-    }
+
     initButtons()
     populateText()
     getPrompts()
+    if (fakeMode) {
+        fakeIt();
+    }
 
 
 
@@ -30,6 +31,7 @@ function initButtons() {
         $('.bigButton').off('click.mynamespace');
         ai()
     })
+
     $(".test").click(function () {
         testSimple()
     })
@@ -55,6 +57,22 @@ function initButtons() {
     $(document).on('click', '.ph-thumbs-down', function () {
         rejectComment($(this).parent().parent().parent().data("id"))
     });
+    $(document).on('mouseenter', '.comment', function () {
+        $('.quote[data-id="' + $(this).data('id') + '"]').addClass('triggeredhover');
+    });
+
+    $(document).on('mouseleave', '.comment', function () {
+        $('.quote[data-id="' + $(this).data('id') + '"]').removeClass('triggeredhover');
+    });
+    $(document).on('mouseenter', '.quote', function () {
+        $('.comment[data-id="' + $(this).data('id') + '"]').addClass('triggeredhover');
+    });
+
+    $(document).on('mouseleave', '.quote', function () {
+        $('.comment[data-id="' + $(this).data('id') + '"]').removeClass('triggeredhover');
+    });
+
+
 }
 
 
@@ -76,6 +94,7 @@ function populateText() {
 
 function createJson(data) {
     console.log("create json")
+    console.log(data)
     var str = data
     var startIndex = str.indexOf('{'); // find the starting index of the JSON object
     var endIndex = str.lastIndexOf('}'); // find the ending index of the JSON object
@@ -92,12 +111,19 @@ function createJson(data) {
 }
 
 function wrapQuotes() {
+
     console.log("wrap quotes");
+
     const quotes = jsonData.targetedFeedback.map((feedback) => feedback.quote);
+
+    console.log(fromStudent.innerHTML);
+    console.log("quotes");
+    console.log(quotes);
     var i = 0;
     quotes.forEach((quote) => {
-        //const regex = new RegExp(quote.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), "g");
+        console.log("quote", quote)
         const regex = new RegExp(quote.replace(/\W/g, '\\$&'), "g");
+        //const regex = new RegExp(quote.replace(/[^\w\s]/g, '\\$&'), 'g');
         fromStudent.innerHTML = fromStudent.innerHTML.replace(
             regex,
             `<span data-id='` + i + `'class="quote">${quote}</span>`
@@ -241,8 +267,6 @@ function ai() {
         })
         .then(data => {
             console.log("Data received")
-            console.log(data)
-            //console.log(data.result)
             $(".bigButton").removeClass("loading")
             $(".bigButton").addClass("loaded")
             createJson(data.result)
