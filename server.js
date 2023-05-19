@@ -21,16 +21,15 @@ if (process.env.NODE_ENV === 'replit') {
     console.log("Running locally, here is the API key", process.env.OPENAI_API_KEY);
 }
 
-// Serve static files from the "static" directory
-app.use(express.static('static'));
+
+
 
 // Define authentication middleware
 const authenticate = (req, res, next) => {
-    const publicPath = join(dirname(fileURLToPath(import.meta.url)), 'static/public');
-    if (req.path.startsWith('/public') && !req.path.startsWith('/public/createrubric')) {
+    if (req.path.startsWith('/public')) {
         // Define your username and password
         const username = 'essayreviewer';
-        const password = 'pencil-rubber-paper';
+        const password = 'phone-fork-file';
 
         const credentials = basicAuth(req);
 
@@ -44,8 +43,16 @@ const authenticate = (req, res, next) => {
     next();
 };
 
+// Apply authentication middleware to public folder
+app.use('/public', authenticate);
+
 // Apply authentication middleware
 app.use(authenticate);
+
+// Serve static files from the "static" directory
+app.use(express.static('static'));
+
+
 
 // API code
 app.use(express.json()); // Parse JSON request bodies
