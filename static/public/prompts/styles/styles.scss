@@ -64,6 +64,11 @@ $pagewidth: 900px;
 
 }
 
+p.warning {
+  padding-left: 16px;
+  color: #ff6a00;
+}
+
 label {
   color: grey;
   display: block;
@@ -119,8 +124,10 @@ button.inline {
 }
 
 #pageList {
-  max-width: $pagewidth;
 
+
+  max-width: $pagewidth;
+  width: 900px;
   padding: 0;
   display: flex;
   flex-direction: column;

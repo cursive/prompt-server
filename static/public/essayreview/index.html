@@ -52,17 +52,40 @@
         </div>
       </div>
       <div class="right">
-        <div class="cta">
-          <button class="test">Test simple</button>
-          <h3>Pre review</h3>
-          <p>We can take a first pass at review the ssay to call out what matters to you</p>
+
+        <div class="cta admin">
+
+
+          <p>
+            Testing tools (not customer facing)</p>
+          <span>Prompt:</span>
           <select id="promptDropdown">
             <option value="" selected disabled>Select a prompt</option>
           </select>
+          <br>
+          <span>Rubric:</span>
           <select id="rubricDropdown">
             <option value="" selected disabled>Select a rubric</option>
           </select>
+          <br>
+          <span>Links:</span>
+          <a href="../prompts/promptlist.html">Prompts</a>
+          <a href="../prompts/rubriclist.html">Rubrics</a>
+          <a href="../essayreview/index.html">Essay</a>
+
+        </div>
+        <div class="cta">
+
+
+          <!-- <button class="test">Test simple</button> -->
+          <h3>Pre review</h3>
+          <p>We can take a first pass at review using the <span class="showrubric">blah blah</span> rubric the ssay to
+            call out what matters to you
+          </p>
+
           <div class="bigButton"></div>
+
+
         </div>
         <div class="comments">
 
@@ -85,7 +108,13 @@
     <div id="output"></div>
 
   </div>
-
+  <div class="rubric hidden">
+    <div class="window">
+      <h4></h4>
+      <div class="close">Close</div>
+      <p></p>
+    </div>
+  </div>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <script src="js/libs/jquery-3.6.3.min.js"></script>
   <script src="js/blobs.js"></script>

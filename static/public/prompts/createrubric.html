@@ -13,7 +13,6 @@
 
 <body>
     <div class="nav">
-        <a href="../../">Home</a>
         <a href="../prompts/promptlist.html">Prompts</a>
         <a href="../prompts/rubriclist.html">Rubrics</a>
         <a href="../essayreview/index.html">Essay</a>
@@ -53,14 +52,7 @@
                 body: JSON.stringify(newRubric)
             })
                 .then(response => response.json())
-                .then(result => {
-                    createMessage.style.display = 'block';
-                    createForm.reset();
-                    setTimeout(() => {
-                        createMessage.style.display = 'none';
-                        window.location.href = 'rubriclist.html';
-                    }, 2000);
-                })
+                .then(result => { const uuid = result.uuid; window.location.href = `updaterubric.html?uuid=${uuid}`; })
                 .catch(error => {
                     console.error(error);
                     alert('Failed to create rubric. Please try again.');

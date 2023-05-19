@@ -13,16 +13,15 @@
 
 <body>
     <div class="nav">
-        <a href="../../">Home</a>
         <a href="../prompts/promptlist.html">Prompts</a>
         <a href="../prompts/rubriclist.html">Rubrics</a>
         <a href="../essayreview/index.html">Essay</a>
     </div>
     <div class="header">
-        <h1>Update Prompt</h1>
-        <p id="updateMessage" style="display: none;">Prompt updated</p>
+        <h1>Prompt details</h1>
+        <p id="updateMessage" style="display: none;">Prompt saved</p>
         <button onclick="submitForm();">
-            Update
+            Save
         </button>
     </div>
 
@@ -56,7 +55,7 @@
         const descriptionInput = document.getElementById('description');
         const dateField = document.getElementById('date');
         const updateMessage = document.getElementById('updateMessage');
-
+        console.log("uuid", uuid);
         // Fetch the prompt data based on the UUID
         fetch(baseURL + `api/getSinglePrompt/${uuid}`)
             .then(response => response.json())
@@ -64,7 +63,7 @@
 
                 titleInput.value = prompt.title;
                 descriptionInput.value = prompt.description;
-                dateField.textContent = `Last Updated: ${prompt.date}`;
+
             })
             .catch(error => {
                 console.error(error);
@@ -99,7 +98,7 @@
 
         // Hide the update message when the user starts typing again
         titleInput.addEventListener('input', () => {
-            updateMessage.style.opacity = 'none';
+            updateMessage.style.display = 'none';
         });
 
         descriptionInput.addEventListener('input', () => {

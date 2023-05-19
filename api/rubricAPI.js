@@ -50,7 +50,8 @@ router.post('/createrubric', (req, res) => {
             }
 
             console.log('createrubric', newEntry);
-            res.json({ message: 'Rubric entry created successfully.' });
+            res.json({ message: 'Rubric entry created successfully.', uuid: newEntry.uuid });
+
         });
     });
 });
