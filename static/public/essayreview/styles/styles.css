@@ -314,7 +314,7 @@ body {
 .bigButton.loading {
   animation: flickerAnimation 2.1s infinite;
   background-position: -100% 0;
-  transition: all 45s ease-in-out;
+  transition: all 60s ease-out;
   text-decoration: none;
   cursor: default !important;
 }
