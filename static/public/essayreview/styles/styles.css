@@ -96,6 +96,7 @@ body {
 .right .cta.admin,
 .left .cta.admin {
   background-color: #eeeeee;
+  width: 224px;
 }
 .right .cta.admin p,
 .left .cta.admin p {
