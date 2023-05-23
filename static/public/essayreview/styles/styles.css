@@ -287,7 +287,7 @@ body {
   cursor: default !important;
 }
 .bigButton.loading::before {
-  content: "Loading...";
+  content: "Loading (about 60s)...";
 }
 .bigButton.loaded {
   background-color: #999999;

@@ -386,7 +386,7 @@ body {
     cursor: default !important;
 
     &::before {
-      content: 'Loading...';
+      content: 'Loading (about 60s)...';
     }
 
   }
