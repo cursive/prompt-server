@@ -1,9 +1,13 @@
 
-var fakeMode = true;
+var fakeMode = false;
+if (window.location.hostname === 'localhost') {
+    fakeMode = false;
+}
 var jsonData;
 var remoteRoot = "https://prompt-server--danielnacamuli.repl.co/";
 var localRoot = "http://localhost:3000/";
 var baseURL = window.location.hostname === 'localhost' ? localRoot : remoteRoot;
+
 var allPrompts
 var allRubrics
 var promptDropdown = document.getElementById('promptDropdown');
