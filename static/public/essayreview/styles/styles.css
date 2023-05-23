@@ -70,45 +70,55 @@ body {
   padding: 24px;
 }
 
-.right {
+.right,
+.left {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-.right .cta {
+.right .cta,
+.left .cta {
   background-color: #ffffff;
   border-radius: 16px;
   padding: 16px;
   width: 344px;
 }
-.right .cta .showrubric {
+.right .cta .showrubric,
+.left .cta .showrubric {
   color: #1865F2;
 }
-.right .cta .showrubric:hover {
+.right .cta .showrubric:hover,
+.left .cta .showrubric:hover {
   text-decoration: underline;
   font-weight: bold;
   cursor: pointer;
 }
-.right .cta.admin {
+.right .cta.admin,
+.left .cta.admin {
   background-color: #eeeeee;
 }
-.right .cta.admin p {
+.right .cta.admin p,
+.left .cta.admin p {
   margin: 0;
   padding: 0;
 }
-.right .cta.admin a {
+.right .cta.admin a,
+.left .cta.admin a {
   color: #1865F2;
   margin-bottom: 8px;
   margin-right: 8px;
 }
-.right .cta.admin select {
+.right .cta.admin select,
+.left .cta.admin select {
   width: 180px;
 }
-.right .cta.admin span {
+.right .cta.admin span,
+.left .cta.admin span {
   display: inline-block;
   width: 70px;
 }
-.right .comments {
+.right .comments,
+.left .comments {
   display: flex;
   flex-direction: column;
   gap: 16px;
