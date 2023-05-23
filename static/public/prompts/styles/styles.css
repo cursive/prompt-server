@@ -130,4 +130,9 @@ textarea {
   border-radius: 4px;
   border: 1px solid #DBDCDD;
   width: 100%;
+}
+
+input[type=text] {
+  margin-right: 8px;
+  width: 800px;
 }/*# sourceMappingURL=styles.css.map */

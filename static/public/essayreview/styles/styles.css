@@ -1,4 +1,107 @@
 @charset "UTF-8";
+.comment {
+  box-sizing: border-box;
+  width: 360px;
+  padding: 8px;
+  padding-top: 16px;
+  padding-right: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  border-radius: 16px;
+}
+.comment * {
+  transition: 300ms;
+}
+.comment.score1 {
+  background-color: #E6DBDB;
+}
+.comment.score2 {
+  background-color: #E7E7D9;
+}
+.comment.score3 {
+  background-color: #E7E7D9;
+}
+.comment.score4 {
+  background-color: #DEEAE0;
+}
+.comment.hovering {
+  stroke: 1px solid #666666;
+  background-color: #ff0000;
+}
+.comment:hover {
+  outline: solid 2px rgba(0, 0, 0, 0.5);
+  outline-offset: -2px;
+}
+.comment.triggeredhover {
+  outline: solid 2px rgba(0, 0, 0, 0.5);
+  outline-offset: -2px;
+}
+.comment.approved {
+  background-color: #d9dde7;
+}
+.comment.approved .migo {
+  scale: 0;
+}
+.comment.approved .teacher {
+  scale: 1;
+}
+.comment.approved .actions .ph-thumbs-up,
+.comment.approved .ph-thumbs-down {
+  opacity: 0;
+}
+.comment.rejected {
+  transition: 1300ms;
+  scale: 0;
+  transform-origin: 30% 90%;
+  transition: 300ms;
+  transition-timing-function: cubic-bezier(-1, 0.7, 1, 0.1);
+}
+.comment .face {
+  padding-top: 26px;
+  font-size: 24px;
+}
+.comment img {
+  padding-left: 8px;
+  transform-origin: center;
+}
+.comment .teacher {
+  margin-left: -32px;
+}
+.comment .teacher {
+  scale: 0;
+}
+.comment .dimension {
+  padding-left: 8px;
+  font-size: 16px;
+  font-weight: 300;
+  text-transform: capitalize;
+  padding-top: 8px;
+}
+.comment .feedback {
+  transition: 700ms;
+  font-size: 16px;
+  color: #666666;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 4px;
+  border-radius: 8px;
+}
+.comment .feedback:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+.comment .feedback:focus {
+  outline: 2px solid rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 0.05);
+  transition: 300ms;
+}
+.comment .buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-top: 4px;
+}
 * {
   @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
   font-family: "Lato", sans-serif;
@@ -142,109 +245,6 @@ body {
   gap: 16px;
 }
 
-.comment {
-  box-sizing: border-box;
-  width: 360px;
-  padding: 8px;
-  padding-top: 16px;
-  padding-right: 8px;
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  border-radius: 16px;
-}
-.comment * {
-  transition: 300ms;
-}
-.comment.score1 {
-  background-color: #E6DBDB;
-}
-.comment.score2 {
-  background-color: #E7E7D9;
-}
-.comment.score3 {
-  background-color: #E7E7D9;
-}
-.comment.score4 {
-  background-color: #DEEAE0;
-}
-.comment.hovering {
-  stroke: 1px solid #666666;
-  background-color: #ff0000;
-}
-.comment:hover {
-  outline: solid 2px rgba(0, 0, 0, 0.5);
-  outline-offset: -2px;
-}
-.comment.triggeredhover {
-  outline: solid 2px rgba(0, 0, 0, 0.5);
-  outline-offset: -2px;
-}
-.comment.approved {
-  background-color: #d9dde7;
-}
-.comment.approved .migo {
-  scale: 0;
-}
-.comment.approved .teacher {
-  scale: 1;
-}
-.comment.approved .actions .ph-thumbs-up,
-.comment.approved .ph-thumbs-down {
-  opacity: 0;
-}
-.comment.rejected {
-  transition: 1300ms;
-  scale: 0;
-  transform-origin: 30% 90%;
-  transition: 300ms;
-  transition-timing-function: cubic-bezier(-1, 0.7, 1, 0.1);
-}
-.comment .face {
-  padding-top: 26px;
-  font-size: 24px;
-}
-.comment img {
-  padding-left: 8px;
-  transform-origin: center;
-}
-.comment .teacher {
-  margin-left: -32px;
-}
-.comment .teacher {
-  scale: 0;
-}
-.comment .dimension {
-  padding-left: 8px;
-  font-size: 16px;
-  font-weight: 300;
-  text-transform: capitalize;
-  padding-top: 8px;
-}
-.comment .feedback {
-  transition: 700ms;
-  font-size: 16px;
-  color: #666666;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 4px;
-  border-radius: 8px;
-}
-.comment .feedback:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-}
-.comment .feedback:focus {
-  outline: 2px solid rgba(0, 0, 0, 0.3);
-  background-color: rgba(255, 255, 255, 0.05);
-  transition: 300ms;
-}
-.comment .buttons {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  margin-top: 4px;
-}
 .center .content {
   width: 640px;
 }

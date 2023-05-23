@@ -1,5 +1,5 @@
 
-var fakeMode = false;
+var fakeMode = true;
 var jsonData;
 var remoteRoot = "https://prompt-server--danielnacamuli.repl.co/";
 var localRoot = "http://localhost:3000/";
@@ -161,40 +161,10 @@ function processPartials() {
 }
 
 
-function processFull() {
-    //loop through the overallFeedback in the jsonData object the feedback content to the p tag in the review div
-    for (var i = 0; i < jsonData.overallFeedback.length; i++) {
-        var feedback = jsonData.overallFeedback[i].feedback;
-        var score = jsonData.overallFeedback[i].score;
-        $(".review p:nth-of-type(" + (i + 1) + ")").html(feedback)
-        if (i < 3) {
-            $(".review h3:nth-of-type(" + (i + 1) + ")").append(" " + score + "/4")
-        }
-    }
-}
 
 
 
 
-
-
-function testSimple() {
-    console.log("sending to simple..")
-    fetch(baseURL + 'api/message', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({}) // Add any request data if needed
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data.message); // Process the response data
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
 
 function getPrompts() {
     console.log("getting prompts..")
@@ -332,11 +302,39 @@ function removeComment(id) {
 }
 
 function drawComment(i, score, dimension, feedback) {
-    var c = "<div data-id='" + i + "' class='comment animate__animated animate__fadeIn animate__delay-" + (i - i) + "s   " + "score" + score + "'><div class='content'><img class='migo' src='img/migo.png'><img class='teacher' src='img/teacher.png'><div class='dimension'>" + dimension + "</div><div class='feedback'>" + feedback + "</div><div class='buttons actions'><i class='ph ph-pencil'></i><i class='ph ph-thumbs-up'></i><i class='ph ph-thumbs-down'></i></div><div class='edits buttons hidden'><i class='ph ph-check'></i><i class='ph ph-x'></i></div></div></div>"
+    var c = "<div data-id='" + i + "' class='comment animate__animated animate__fadeIn animate__delay-" + (i - i) + "s   " + "score" + score + "'><div class='content'><img class='migo' src='img/migo.png'><img class='teacher' src='img/teacher.png'>" + dimension + "<div class='feedback'>" + feedback + "</div><div class='buttons actions'><i class='ph ph-pencil'></i><i class='ph ph-thumbs-up'></i><i class='ph ph-thumbs-down'></i></div><div class='edits buttons hidden'><i class='ph ph-check'></i><i class='ph ph-x'></i></div></div></div>"
+    return c;
+}
+
+function drawFeedback(i, score, dimension, feedback) {
+    var c = " <div class='feedback'><h3>" + dimension + ": " + score + "</h3><p>" + feedback + "</p> </div > "
     return c;
 }
 
 
 
+function processFull() {
+    console.log("process full")
+    //loop through the overallFeedback in the jsonData object the feedback content to the p tag in the review div
+    for (var i = 0; i < jsonData.overallFeedback.length; i++) {
+        var dimension = jsonData.overallFeedback[i].dimension;
+        var feedback = jsonData.overallFeedback[i].feedback;
+        var score = jsonData.overallFeedback[i].score;
+        $(".review").append(drawFeedback(i, score, dimension, feedback));
+
+    }
+}
 
 
+function processPartials() {
+    console.log("process partials")
+    for (var i = 0; i < jsonData.targetedFeedback.length; i++) {
+        var dimension = jsonData.targetedFeedback[i].dimension;
+        var score = jsonData.targetedFeedback[i].score;
+        var feedback = jsonData.targetedFeedback[i].feedback;
+        $(".quote:nth-of-type(" + (i + 1) + ")").addClass(dimension)
+        $(".quote:nth-of-type(" + (i + 1) + ")").addClass("score" + score)
+        $(".comments").append(drawComment(i, score, dimension, feedback));
+    }
+    processFull();
+}
