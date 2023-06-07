@@ -3,15 +3,11 @@ import express from "express";
 import dotenv from 'dotenv';
 dotenv.config({ path: './.env' });
 
-
-
-
 const router = express.Router();
 console.log("openaiAPI.js jsut started")
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
-    organization: "org-bB07M3DWbjAl8c5MzXlwxH6q"
 });
 console.log("OpenAPI key", process.env.OPENAI_API_KEY)
 const openai = new OpenAIApi(configuration);
@@ -36,28 +32,20 @@ router.post('/openai', async (req, res) => {
     console.log("Sending prompt and rubric to OpenAI")
     //console.log(promptintro + rubric)
     try {
-        const completion = await openai.createChatCompletion({
+        const completion = await openai.createCompletion({
+            // model: "text-davinci-003",
+            // max_tokens: 2000,
+            // prompt: promptintro + rubricString,
+            // temperature: 0.6,
             model: "gpt-4",
-            max_tokens: 4000,
-            messages: [
-                {
-                    "role": "system",
-                    "content": promptintro + rubricString
-                }
-            ],
+            max_tokens: 7000,
+            prompt: promptintro + rubricString,
             temperature: 0.6,
-            // org: "org-bB07M3DWbjAl8c5MzXlwxH6q",
         });
         console.log("Server: 200 ok, show data")
-        console.log("completion.data.choices[0].message")
-        // console.log(completion.data);
-        // console.log(completion.data.choices);
-        console.log(completion.data.choices[0].message);
-        // console.log(completion.data.choices[0].finish_reason);
-        // console.log(completion.data.choices[0].index);
+        console.log(completion.data)
         console.log("end data")
-        res.status(200).json({ result: completion.data.choices[0].message });
-        //res.status(200).json({ result: completion.data.choices[0].text });
+        res.status(200).json({ result: completion.data.choices[0].text });
     } catch (error) {
         // Consider adjusting the error handling logic for your use case
         if (error.response) {
@@ -82,10 +70,7 @@ function generatePrompt(prompt, rubric) {
 }
 
 
-// model: "text-davinci-003",
-// max_tokens: 2000,
-// prompt: promptintro + rubricString,
-// temperature: 0.6,
+
 
 
 

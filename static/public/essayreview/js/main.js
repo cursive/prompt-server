@@ -96,6 +96,22 @@ function populateText() {
     //$("#article").val(art)
 }
 
+function createJsonGTP3(data) {
+    console.log("create json")
+    console.log(data)
+    var str = data
+    var startIndex = str.indexOf('{'); // find the starting index of the JSON object
+    var endIndex = str.lastIndexOf('}'); // find the ending index of the JSON object
+    var jsonStr = str.substring(startIndex, endIndex + 1); // extract the JSON object as a string
+    jsonData = JSON.parse(jsonStr); // parse the JSON object string into a JavaScript object
+    console.log("-------")
+    //console.log(jsonStr)
+    console.log("-------")
+    console.log(jsonData)
+    wrapQuotes();
+    processPartials();
+}
+
 function createJson(data) {
     console.log("create json")
     console.log(data)
@@ -110,31 +126,9 @@ function createJson(data) {
     console.log(jsonData)
     wrapQuotes();
     processPartials();
-
-
 }
 
-function wrapQuotes() {
 
-    console.log("wrap quotes");
-
-    const quotes = jsonData.targetedFeedback.map((feedback) => feedback.quote);
-
-    console.log(fromStudent.innerHTML);
-    console.log("quotes");
-    console.log(quotes);
-    var i = 0;
-    quotes.forEach((quote) => {
-        console.log("quote", quote)
-        const regex = new RegExp(quote.replace(/\W/g, '\\$&'), "g");
-        //const regex = new RegExp(quote.replace(/[^\w\s]/g, '\\$&'), 'g');
-        fromStudent.innerHTML = fromStudent.innerHTML.replace(
-            regex,
-            `<span data-id='` + i + `'class="quote">${quote}</span>`
-        );
-        i++;
-    });
-}
 
 
 
@@ -240,16 +234,61 @@ function ai() {
             return response.json();
         })
         .then(data => {
-            console.log("Data received")
-            $(".bigButton").removeClass("loading")
-            $(".bigButton").addClass("loaded")
-            createJson(data.result)
+            console.log("Data received");
+
+            cleanData(data);
+            $(".bigButton").removeClass("loading");
+            $(".bigButton").addClass("loaded");
         })
         .catch(error => {
             console.error(error);
             alert(error.message);
         });
 }
+
+function cleanData(data) {
+    console.log("cleaning data");
+    console.log("data:\n", data);
+
+    // Parse the content as JSON
+    const parsedData = JSON.parse(data.result.content);
+
+    // Check if fullResults is present
+    if (parsedData.fullResults) {
+        // Assign the targetedFeedback and overallFeedback properties to jsonData
+        const { targetedFeedback, overallFeedback } = parsedData.fullResults;
+        jsonData = { targetedFeedback, overallFeedback };
+    } else {
+        // If fullResults is not present, assign the parsedData object to jsonData
+        jsonData = parsedData;
+    }
+
+    console.log("jsonData:\n", jsonData);
+
+    wrapQuotes();
+    processPartials();
+}
+
+function wrapQuotes() {
+
+    console.log("wrap quotes");
+    const quotes = jsonData.targetedFeedback.map((feedback) => feedback.quote);
+    console.log(fromStudent.innerHTML);
+    console.log("quotes");
+    console.log(quotes);
+    var i = 0;
+    quotes.forEach((quote) => {
+        console.log("quote", quote)
+        const regex = new RegExp(quote.replace(/\W/g, '\\$&'), "g");
+        //const regex = new RegExp(quote.replace(/[^\w\s]/g, '\\$&'), 'g');
+        fromStudent.innerHTML = fromStudent.innerHTML.replace(
+            regex,
+            `<span data-id='` + i + `'class="quote">${quote}</span>`
+        );
+        i++;
+    });
+}
+
 
 function updateRubric(id) {
     console.log(id, "dsa", allRubrics)
