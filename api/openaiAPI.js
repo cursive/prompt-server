@@ -81,9 +81,4 @@ function generatePrompt(prompt, rubric) {
     return prompt + rubric;
 }
 
-
-
-
-
-
 export default router;

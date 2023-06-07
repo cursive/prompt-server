@@ -30,16 +30,13 @@ const authenticate = (req, res, next) => {
         // Define your username and password
         const username = 'essayreviewer';
         const password = 'phone-fork-file';
-
         const credentials = basicAuth(req);
-
         if (!credentials || credentials.name !== username || credentials.pass !== password) {
             res.set('WWW-Authenticate', 'Basic realm="Authorization Required"');
             res.sendStatus(401);
             return;
         }
     }
-
     next();
 };
 
@@ -49,7 +46,7 @@ const authenticate = (req, res, next) => {
 app.use(authenticate);
 
 // Serve static files from the "static" directory
-app.use(express.static('static'));
+app.use(express.static('public'));
 
 
 
@@ -65,12 +62,14 @@ app.use('/api', promptAPI); // Mount example API at /api
 app.get('/', (req, res) => {
     const htmlContent = `
         <h1>Essay Review</h1>
-        <a href="public/essayreview/index.html">Essay review</a>
-        <a href="public/prompts/promptlist.html">List of prompts</a>
-        <a href="public/prompts/rubriclist.html">List of rubrics</a>
+        <a href="essayreview/index.html">Essay review</a>
+        <a href="prompts/promptlist.html">List of prompts</a>
+        <a href="prompts/rubriclist.html">List of rubrics</a>
     `;
     res.send(htmlContent);
 });
+
+
 
 // Start the server
 app.listen(port, () => {

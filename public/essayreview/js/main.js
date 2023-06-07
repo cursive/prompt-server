@@ -118,16 +118,14 @@ function wrapQuotes() {
 
     console.log("wrap quotes");
 
-    const quotes = jsonData.targetedFeedback.map((feedback) => feedback.quote);
-
     console.log(fromStudent.innerHTML);
     console.log("quotes");
+    const quotes = jsonData.targetedFeedback.map((feedback) => feedback.quote);
     console.log(quotes);
     var i = 0;
     quotes.forEach((quote) => {
         console.log("quote", quote)
         const regex = new RegExp(quote.replace(/\W/g, '\\$&'), "g");
-        //const regex = new RegExp(quote.replace(/[^\w\s]/g, '\\$&'), 'g');
         fromStudent.innerHTML = fromStudent.innerHTML.replace(
             regex,
             `<span data-id='` + i + `'class="quote">${quote}</span>`
