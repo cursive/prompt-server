@@ -34,7 +34,7 @@ router.post('/openai', async (req, res) => {
     rubric = rubric.replace(/\n/g, '');
     const rubricString = JSON.stringify(rubric);
     console.log("Sending prompt and rubric to OpenAI")
-    console.log(promptintro + rubric)
+    // console.log(promptintro + rubric)
     try {
         const completion = await openai.createChatCompletion({
             model: "gpt-4",
@@ -50,8 +50,6 @@ router.post('/openai', async (req, res) => {
         });
         console.log("Server: 200 ok, show data")
         console.log("completion.data.choices[0].message")
-        // console.log(completion.data);
-        // console.log(completion.data.choices);
         console.log(completion.data.choices[0].message);
         // console.log(completion.data.choices[0].finish_reason);
         // console.log(completion.data.choices[0].index);

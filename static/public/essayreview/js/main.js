@@ -218,9 +218,7 @@ function ai() {
         },
         //body: JSON.stringify({ essay: document.getElementById("essayTextArea").value }),
         body: JSON.stringify({
-            // instructions: document.getElementById("instructions").value,
-            // article: art,
-            // essay: ess
+
             prompt: allPrompts[promptDropdown.selectedIndex - 1].description,
             rubric: allRubrics[rubricDropdown.selectedIndex - 1].description
 
