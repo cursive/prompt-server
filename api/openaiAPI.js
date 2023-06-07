@@ -24,21 +24,6 @@ router.post('/openai', async (req, res) => {
         return;
     }
     console.log("API Key OK, check if there's an essay")
-    //const instructions = req.body.instructions || '';
-    //const article = req.body.article || '';
-    //const essay = req.body.essay || '';
-    // if (req.body.trim().length === 0) {
-    //     console.log("Server: You haven't provided an essay to review")
-    //     res.status(400).json({
-    //         error: {
-    //             message: "You haven't provided an essay to review",
-    //         }
-    //     });
-    //     return;
-    // }
-
-
-
     var promptintro = req.body.prompt || '';
     promptintro = promptintro.replace(/\n/g, '');
     var rubric = req.body.rubric || '';
@@ -48,9 +33,12 @@ router.post('/openai', async (req, res) => {
     //console.log(promptintro + rubric)
     try {
         const completion = await openai.createCompletion({
-            model: "text-davinci-003",
-            max_tokens: 2000,
-            //prompt: generatePrompt(),
+            // model: "text-davinci-003",
+            // max_tokens: 2000,
+            // prompt: promptintro + rubricString,
+            // temperature: 0.6,
+            model: "gpt-4",
+            max_tokens: 7000,
             prompt: promptintro + rubricString,
             temperature: 0.6,
         });
