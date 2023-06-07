@@ -1,0 +1,75 @@
+<!-- HelloWorld.vue -->
+<template>
+  <div class="hello">
+    <h1>{{ msg }}</h1>
+    <p>
+      Recipes on how to configure / customize this project,<br>
+      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
+    </p>
+    <button @click="fetchData">Fetch Data</button>
+    <p>Prompt Data: {{ promptData[0].title }}</p>
+    <p>Rubric Data: {{ rubricData[0].title }}</p>
+    <button @click="handleButtonClick">Call OpenAI</button>
+  </div>
+</template>
+
+<script>
+import { ref } from 'vue';
+import { useJsonStore } from '../stores/prompts';
+import { callOpenAI } from '../api/openaiAPI.js';
+
+export default {
+  name: 'HelloWorld',
+  props: {
+    msg: String
+  },
+  methods: {
+    fetchData() {
+      const store = useJsonStore();
+      console.log(store.getPromptData());
+      //store.setPromptData({ /* your prompt data */ });
+      //store.setRubricData({ /* your rubric data */ });
+    },
+    handleButtonClick() {
+      // const store = useJsonStore();
+      // callOpenAI(store.getPromptData(), store.getRubricData())
+      // callOpenAI("fdfds", "fdsfds")
+      //   .then(result => {
+      //     console.log('Result:', result);
+      //   })
+      //   .catch(error => {
+      //     console.error('Error:', error);
+      //   });
+    },
+  },
+  computed: {
+    promptData() {
+      const store = useJsonStore();
+      return store.getPromptData();
+    },
+    rubricData() {
+      const store = useJsonStore();
+      return store.getRubricData();
+    },
+  },
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped></style>
+
+
+
+
+    $(document).on('click', '.ph-pencil', function () {
+        editComment()
+    });
+    $(document).on('click', '.ph-check', function () {
+        approveComment()
+    });
+    $(document).on('click', '.ph-thumbs-up', function () {
+        approveComment()
+    });
+    $(document).on('click', '.ph-thumbs-down', function () {
+        rejectComment()
+    });
