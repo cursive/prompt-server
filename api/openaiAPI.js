@@ -46,16 +46,12 @@ router.post('/openai', async (req, res) => {
                 }
             ],
             temperature: 0.6,
-            // org: "org-bB07M3DWbjAl8c5MzXlwxH6q",
         });
         console.log("Server: 200 ok, show data")
         console.log("completion.data.choices[0].message")
         console.log(completion.data.choices[0].message);
-        // console.log(completion.data.choices[0].finish_reason);
-        // console.log(completion.data.choices[0].index);
         console.log("end data")
         res.status(200).json({ result: completion.data.choices[0].message });
-        //res.status(200).json({ result: completion.data.choices[0].text });
     } catch (error) {
         // Consider adjusting the error handling logic for your use case
         if (error.response) {
