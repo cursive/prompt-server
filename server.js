@@ -29,7 +29,7 @@ const authenticate = (req, res, next) => {
     if (req.path.startsWith('/public')) {
         // Define your username and password
         const username = 'teacher';
-        const password = 'phone-fork-file';
+        const password = 'review';
 
         const credentials = basicAuth(req);
 

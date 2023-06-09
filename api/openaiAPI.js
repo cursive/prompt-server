@@ -33,7 +33,10 @@ router.post('/openai', async (req, res) => {
     var rubric = req.body.rubric || '';
     rubric = rubric.replace(/\n/g, '');
     const rubricString = JSON.stringify(rubric);
-    console.log("Sending prompt and rubric to OpenAI")
+    const currentDate = new Date();
+    const currentTime = currentDate.toLocaleTimeString();
+    console.log(`[${currentTime}] Sending prompt and rubric to OpenAI:`, promptintro.substring(0, 20), rubricString.substring(0, 20));
+
     // console.log(promptintro + rubric)
     try {
         const completion = await openai.createChatCompletion({
