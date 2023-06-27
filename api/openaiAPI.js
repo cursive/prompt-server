@@ -78,12 +78,4 @@ function generatePrompt(prompt, rubric) {
     return prompt + rubric;
 }
 
-
-// model: "text-davinci-003",
-// max_tokens: 2000,
-// prompt: promptintro + rubricString,
-// temperature: 0.6,
-
-
-
 export default router;

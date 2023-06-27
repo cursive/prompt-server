@@ -4,10 +4,8 @@ import basicAuth from 'basic-auth'; // Import basic-auth middleware
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path'; // Add this line
 dotenv.config({ path: './.env' });
-import exampleAPI from './api/exampleAPI.js';
 import openaiAPI from './api/openaiAPI.js';
-import rubricAPI from './api/rubricAPI.js';
-import promptAPI from './api/promptAPI.js';
+
 
 const app = express();
 const port = 3000;
@@ -55,10 +53,7 @@ app.use(express.static('static'));
 
 // API code
 app.use(express.json()); // Parse JSON request bodies
-app.use('/api', exampleAPI); // Mount example API at /api
 app.use('/api', openaiAPI); // Mount prompt API at /api
-app.use('/api', rubricAPI); // Mount example API at /api
-app.use('/api', promptAPI); // Mount example API at /api
 
 
 // Define root route
@@ -68,9 +63,6 @@ app.get('/', (req, res) => {
         <ul>
         
         <li><a href="public/dist/index.html">Vue Essay review</a></li>
-        <li><a href="public/essayreview/index.html">Essay review</a></li>
-        <li><a href="public/prompts/promptlist.html">List of prompts</a></li>
-        <li><a href="public/prompts/rubriclist.html">List of rubrics</a></li>
         </ul>
         
     `;
