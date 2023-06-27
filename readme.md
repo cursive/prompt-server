@@ -1,4 +1,4 @@
-## Open AI server
+## Open AI API relay server
 This is a server that has an endpoint for calling the openAI API
 It also has a folder called static for serving static files
 
@@ -8,6 +8,9 @@ It also has a folder called static for serving static files
 - **static/public/dist** constinas the built version of the vue project (the source itself is a different project)
 - **.env** holds the API keys
 - **server.js** is this web server
+
+
+## Starting the server
 
 ```
 prompt-server % node server.js
@@ -24,7 +27,7 @@ Build the vue project then copy it into this server's static dist folder, then r
 essay-vue % npm run build
 ```
 
-## Runnign locally
+## Running locally with the Vue project
 Use cors-backdoor to allow the vue project to call this server's API
 ```
 cors-backdoor --target http://localhost:3000/
