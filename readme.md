@@ -4,7 +4,6 @@ It also has a folder called static for serving static files
 
 ## key files & folders
 - **api/openaiAPI.js** receives the prompt, sends it to OpenAi and gets the feedback and comments in return
-- **data/promptData.json** has the josn obhect thatincldues the prompt, rubruc and essay
 - **static/public/dist** constinas the built version of the vue project (the source itself is a different project)
 - **.env** holds the API keys
 - **server.js** is this web server
